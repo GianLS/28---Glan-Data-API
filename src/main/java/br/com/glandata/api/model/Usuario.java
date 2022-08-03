@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -42,9 +43,9 @@ public class Usuario implements UserDetails {
 
 	@Getter
 	@Setter
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "usuarios_roles", 
-			joinColumns = @JoinColumn(name = "usuario_id", referencedColumnName = "login", foreignKey = @ForeignKey(name = "fk_id")),
+			joinColumns = @JoinColumn(name = "usuario_id", referencedColumnName = "login", foreignKey = @ForeignKey(name = "fk_usuario")),
 			inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "nomeRole", foreignKey = @ForeignKey(name = "fk_role")))
 	private List<Role> roles;
 
