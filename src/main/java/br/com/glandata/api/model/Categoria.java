@@ -11,12 +11,16 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import org.hibernate.envers.Audited;
+import org.springframework.hateoas.RepresentationModel;
+
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
 @Table(name = "categorias")
-public class Categoria {
+@Audited
+public class Categoria extends RepresentationModel<Categoria> {
 
 	public Categoria() {
 	}

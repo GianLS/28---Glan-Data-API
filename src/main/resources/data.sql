@@ -1,6 +1,6 @@
-INSERT INTO clientes (cpf, email, nome, data_nascimento) VALUES ('33111472949','kevin_ferreira@thibe.com.br','Kevin Sérgio Caio Ferreira','24/06/1960');
-INSERT INTO clientes (cpf, email, nome, data_nascimento) VALUES ('69895631090','alice_lais_nunes@portoweb.com.br','Alice Laís Nunes','13/07/1993');
-INSERT INTO clientes (cpf, email, nome, data_nascimento) VALUES ('42339999855','cesar.sergio.aparicio@vivo.com.br','César Sérgio Aparício','06/05/1980');
+INSERT INTO clientes (cpf, email, nome, data_nascimento, version) VALUES ('33111472949','kevin_ferreira@thibe.com.br','Kevin Sérgio Caio Ferreira','1960-06-24', 0);
+INSERT INTO clientes (cpf, email, nome, data_nascimento, version) VALUES ('69895631090','alice_lais_nunes@portoweb.com.br','Alice Laís Nunes','1993-07-24', 0);
+INSERT INTO clientes (cpf, email, nome, data_nascimento, version) VALUES ('42339999855','cesar.sergio.aparicio@vivo.com.br','César Sérgio Aparício','1980-05-06', 0);
 
 INSERT INTO roles (nome_role) VALUES ('ROLE_CADASTROS');
 INSERT INTO roles (nome_role) VALUES ('ROLE_FATURAMENTO');

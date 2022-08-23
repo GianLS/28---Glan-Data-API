@@ -2,6 +2,7 @@ package br.com.glandata.api.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -24,7 +25,7 @@ public class ClienteService {
 	public Page<Cliente> listarPaginado(Pageable pageable) {
 		return clienteRepository.findAll(pageable);
 	}
-	
+
 	public Cliente incluir(Cliente cliente) {
 		return clienteRepository.save(cliente);
 	}
@@ -38,6 +39,7 @@ public class ClienteService {
 			c.setNome(cliente.getNome());
 			c.setCpf(cliente.getCpf());
 			c.setDataNascimento(cliente.getDataNascimento());
+			c.setEmail(cliente.getEmail());
 			return clienteRepository.save(c);
 		});
 	}
@@ -47,5 +49,14 @@ public class ClienteService {
 			clienteRepository.delete(c);
 			return true;
 		}).orElse(false);
+	}
+
+	public List<String> listaRevisoes(Long id) {
+		return clienteRepository.findRevisions(id).stream().map(Object::toString).collect(Collectors.toList());
+	}
+
+	public Optional<Cliente> buscaPorEmailOuCpf(String email, String cpf) {
+		return clienteRepository.findByEmailOrCpf(email, cpf);
+
 	}
 }

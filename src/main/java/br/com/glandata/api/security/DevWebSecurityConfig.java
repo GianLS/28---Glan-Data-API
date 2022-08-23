@@ -3,8 +3,6 @@ package br.com.glandata.api.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -21,8 +19,8 @@ import br.com.glandata.api.repository.UsuarioRepository;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true)
-@Profile("prod")
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+//@Profile("dev")
+public class DevWebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private AutenticacaoService autenticacaoService;
@@ -42,10 +40,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-			//.antMatchers("/**").permitAll()
-			.antMatchers("/produtos/**").hasAnyRole("ADMIN")
-			.antMatchers(HttpMethod.POST, "/auth").permitAll()
-			.antMatchers("/actuator/**").permitAll()
+			.antMatchers("/**").permitAll()
 			.anyRequest().authenticated()
 			.and()
 				.csrf().disable().sessionManagement()
@@ -61,6 +56,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/swagger-ui/**", "/v3/api-docs**", "/v3/api-docs/**", "/docs");
+		web.ignoring().antMatchers("/swagger-ui/**", "/v3/api-docs**", "/v3/api-docs/**", "/docs", "/h2-console/**");
 	}
 }

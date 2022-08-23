@@ -10,6 +10,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import br.com.glandata.api.dto.CategoriaDto;
@@ -50,13 +51,17 @@ public class CategoriaService {
 		});
 	}
 
-	public Integer deletar(Long id) {
+	public HttpStatus deletar(Long id) {
 		return categoriaRepository.findById(id).map(c -> {
 			if(c.getProdutos().isEmpty()) {
 				categoriaRepository.delete(c);
-				return 1;	
+				return HttpStatus.OK;	
 			}
-			return -1;
-		}).orElse(0);
+			return HttpStatus.BAD_REQUEST;
+		}).orElse(HttpStatus.NOT_FOUND);
+	}
+
+	public Optional<Categoria> buscaPorNome(String nome) {
+		return categoriaRepository.findByNome(nome);
 	}
 }

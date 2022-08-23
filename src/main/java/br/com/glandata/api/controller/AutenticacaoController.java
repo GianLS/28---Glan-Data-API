@@ -13,9 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.glandata.api.dto.TokenDto;
 import br.com.glandata.api.model.LoginForm;
 import br.com.glandata.api.security.TokenService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/auth")
+@Tag(name = "Autenticação", description = "Realiza a autenticação para acesso aos endpoints")
 public class AutenticacaoController {
 
 	@Autowired
@@ -25,8 +28,8 @@ public class AutenticacaoController {
 	private TokenService tokenService;
 
 	@PostMapping("")
+	@Operation(summary = "Recebe usuário e senha")
 	public ResponseEntity<TokenDto> autenticar(@RequestBody LoginForm form) {
-
 		UsernamePasswordAuthenticationToken dadosLogin = form.converter();
 
 		try {

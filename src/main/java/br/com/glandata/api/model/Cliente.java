@@ -8,18 +8,26 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Version;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
 import org.hibernate.validator.constraints.br.CPF;
+import org.springframework.hateoas.RepresentationModel;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "clientes")
-public class Cliente {
+@Audited
+//@AuditTable(value = "CLIENTE_AUDITORIA")
+@ToString
+public class Cliente extends RepresentationModel<Cliente>{
 	public Cliente() {
 	}
 
@@ -29,6 +37,9 @@ public class Cliente {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@Version
+	private Long version;
+	
 	@Getter
 	@Setter
 	@Column(length = 50)
@@ -45,7 +56,7 @@ public class Cliente {
 	@Getter
 	@Setter
 	@Email(message = "Digite um e-mail válido")
-	/* @Pattern(regexp = "^(.+)@(.+)$", message = "E-mail inválido") */
+	@NotAudited
 	private String email;
 
 	@Getter

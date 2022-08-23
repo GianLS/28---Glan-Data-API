@@ -18,14 +18,17 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.envers.Audited;
 import org.springframework.format.annotation.NumberFormat;
+import org.springframework.hateoas.RepresentationModel;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
 @Table(name = "produtos", indexes = { @Index(name = "id_produto", columnList = "id") })
-public class Produto {
+@Audited
+public class Produto extends RepresentationModel<Produto> {
 
 	public Produto() {
 	}

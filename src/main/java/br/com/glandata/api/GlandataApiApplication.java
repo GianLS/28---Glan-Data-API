@@ -9,5 +9,4 @@ public class GlandataApiApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(GlandataApiApplication.class, args);
 	}
-
 }
